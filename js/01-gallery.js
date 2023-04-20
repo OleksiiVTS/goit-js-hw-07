@@ -3,9 +3,11 @@ import { galleryItems } from './gallery-items.js';
 
 const ulGallery = document.querySelector(".gallery");
 const createMakup = createFotoGalery(galleryItems);
-
+const instance = basicLightbox.create(`
+        <img class="findUrl" src=" " width="800" height="600">
+    `);
 ulGallery.insertAdjacentHTML('beforeend', createMakup);
-ulGallery.addEventListener("click", openBigImg);
+ulGallery.addEventListener("click", clickForOpenBigImg);
 
 function createFotoGalery(galleryItems) {
     return galleryItems
@@ -26,34 +28,28 @@ function createFotoGalery(galleryItems) {
         .join(""); 
 };
 
-function openBigImg(event) {
+function clickForOpenBigImg(event) {
     event.preventDefault()
     if (event.target.nodeName !== "IMG") {
         return;
     };
     const urlBigImg = event.target.dataset.source
-
     openModalWindows(urlBigImg);
 };
 
 function openModalWindows(url) {
-    document.addEventListener("keydown", lisenerEscape)
-    console.dir(url)
-};
-
-function closeModalWindows(params) {
-    document.removeEventListener("keydown", lisenerEscape)
-    
+    document.addEventListener("keydown", lisenerEscape);
+    const findImgUrl = instance.element().querySelector('.findUrl');
+    findImgUrl.src = url;
+    instance.show();
 };
 
 function lisenerEscape(event) {
-    if (event.code !== "Escape") {
+    if (event.code !== "Escape" || !basicLightbox.visible()) {
       return;  
     };
     console.log("Escape")
-    // if (condition) {
-    //     closeModalWindows();
-    // }
+    instance.close()
+    document.removeEventListener("keydown", lisenerEscape)
     
 };
-console.log(ulGallery);
