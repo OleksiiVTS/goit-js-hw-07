@@ -27,7 +27,7 @@ function createFotoGalery(galleryItems) {
         .join(""); 
 };
 
-let lightbox = new SimpleLightbox('.gallery a', { 
+new SimpleLightbox('.gallery a', { 
     /* options */ 
     captionsData:'alt',
     captionPosition: 'bottom',
