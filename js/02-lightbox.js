@@ -5,7 +5,7 @@ const ulGallery = document.querySelector(".gallery");
 const createMakup = createFotoGalery(galleryItems);
 
 ulGallery.insertAdjacentHTML('beforeend', createMakup);
-ulGallery.addEventListener("click", clickForOpenBigImg);
+// ulGallery.addEventListener("click", clickForOpenBigImg);
 
 function createFotoGalery(galleryItems) {
     return galleryItems
@@ -14,10 +14,10 @@ function createFotoGalery(galleryItems) {
         <li class="gallery__item">
         <a 
             class="gallery__link" 
-            href="${preview}">
+            href="${original}">
             <img
                 class="gallery__image"
-                src="${original}"
+                src="${preview}"
                 alt="${description}"
             />
         </a>
@@ -34,15 +34,14 @@ let lightbox = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
 });
 
-function clickForOpenBigImg(event) {
-    event.preventDefault()
-    lightbox.on('show.simplelightbox', function () {
-        // do something…
-    });
-    console.log("Open");
-};
+// function clickForOpenBigImg(event) {
+//     event.preventDefault()
+//     lightbox.on('show.simplelightbox', function () {
+//         // do something…
+//     });
+//     console.log("Open");
+// };
 
-// console.log(ulGallery);
 
 
 

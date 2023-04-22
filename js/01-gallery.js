@@ -5,7 +5,12 @@ const ulGallery = document.querySelector(".gallery");
 const createMakup = createFotoGalery(galleryItems);
 const instance = basicLightbox.create(`
         <img class="findUrl" src=" " width="800" height="600">
-    `);
+    `, {
+        onShow: (instance) =>
+        document.addEventListener("keydown", lisenerEscape),
+        onClose: (instance) =>
+        document.removeEventListener("keydown", lisenerEscape),
+    });
 ulGallery.insertAdjacentHTML('beforeend', createMakup);
 ulGallery.addEventListener("click", clickForOpenBigImg);
 
@@ -14,11 +19,11 @@ function createFotoGalery(galleryItems) {
         .map(({description, original, preview}) => {
         return `
         <li class="gallery__item">
-        <a class="gallery__link" href="${preview}">
+        <a class="gallery__link" href="${original}">
             <img
             class="gallery__image"
-            src="${original}"
-            data-source="${preview}"
+            src="${preview}"
+            data-source="${original}"
             alt="${description}"
             />
         </a>
@@ -38,7 +43,6 @@ function clickForOpenBigImg(event) {
 };
 
 function openModalWindows(url) {
-    document.addEventListener("keydown", lisenerEscape);
     const findImgUrl = instance.element().querySelector('.findUrl');
     findImgUrl.src = url;
     instance.show();
@@ -50,6 +54,4 @@ function lisenerEscape(event) {
     };
     console.log("Escape")
     instance.close()
-    document.removeEventListener("keydown", lisenerEscape)
-    
 };
